@@ -96,6 +96,7 @@ import io.github.dsheirer.module.decode.p25.phase1.P25P1DecoderLSM;
 import io.github.dsheirer.module.decode.p25.phase1.P25P1DecoderState;
 import io.github.dsheirer.module.decode.p25.phase1.message.filter.P25P1MessageFilterSet;
 import io.github.dsheirer.module.decode.p25.phase2.DecodeConfigP25Phase2;
+import io.github.dsheirer.module.decode.p25.phase2.P25P2ControlChannelWebModule;
 import io.github.dsheirer.module.decode.p25.phase2.P25P2DecoderHDQPSK;
 import io.github.dsheirer.module.decode.p25.phase2.P25P2DecoderState;
 import io.github.dsheirer.module.decode.p25.phase2.message.P25P2Message;
@@ -244,6 +245,7 @@ public class DecoderFactory
         if(channel.isStandardChannel())
         {
             modules.add(p25TrafficChannelManager);
+            modules.add(new P25P2ControlChannelWebModule(channel.getName()));
         }
 
         //A single patch group manager is shared across both timeslots

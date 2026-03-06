@@ -49,3 +49,37 @@ committed to the code base, so it's not really 'nightly' as much as it is 'curre
 * **Operating System:** Windows (~~32 or~~ 64-bit), Linux (~~32 or~~ 64-bit) or Mac (64-bit, 12.x or higher)
 * **CPU:** 4-core
 * **RAM:** 8GB or more (preferred).  Depending on usage, 4GB may be sufficient.
+
+## P25 Phase II Control Channel Web Server
+sdrtrunk can publish decoded P25 Phase II LCCH (control channel) MAC messages over HTTP as JSON.
+
+- Endpoint: `GET /api/p25/phase2/control-channel`
+- Default bind: `0.0.0.0`
+- Default port: `9077`
+
+### Runtime Properties
+- `-Dsdrtrunk.p25p2.web.enabled=true|false` (default: `true`)
+- `-Dsdrtrunk.p25p2.web.port=<port>` (default: `9077`)
+
+Example:
+
+```bash
+JAVA_TOOL_OPTIONS="-Dsdrtrunk.p25p2.web.enabled=true -Dsdrtrunk.p25p2.web.port=9077" ./gradlew run
+```
+
+Response is a JSON array of recent control-channel messages (up to 300 entries), newest first.
+
+## Docker Build (Compile)
+You can compile the project in a container image (includes BellSoft JDK 25 full with JavaFX modules):
+
+```bash
+docker build -t sdrtrunk-compile:latest .
+```
+
+This Docker build runs:
+
+```bash
+./gradlew --no-daemon clean compileJava -x test
+```
+
+After build, the resulting compiled artifacts are available in `/workspace/build` in the image.
